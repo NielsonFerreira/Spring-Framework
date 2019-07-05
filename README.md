@@ -1,4 +1,4 @@
-# Estudos com Spring Framework
+# Estudos básicos com Spring Framework
 
 Utilizando:
 - Spring Boot
