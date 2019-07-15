@@ -1,21 +1,30 @@
-package com.nielsonferreira.projeto1.entity;
+package com.nielsonferreira.projeto2.entity;
 
-import java.util.Set;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class User {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy  = GenerationType.AUTO)
 	private Long id;
+	
 	private String name;
 	private String email;
 	
-	@ManyToMany
-	private Set<Role> roles;
+	@ManyToOne
+	private Role role;
 	
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -34,5 +43,4 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 }
