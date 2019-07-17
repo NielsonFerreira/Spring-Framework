@@ -1,43 +1,52 @@
 package com.nielsonferreira.projeto2;
 
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
+import com.nielsonferreira.projeto2.entity.Functionality;
 import com.nielsonferreira.projeto2.entity.Role;
-import com.nielsonferreira.projeto2.repository.RoleRepository;
+import com.nielsonferreira.projeto2.entity.User;
+import com.nielsonferreira.projeto2.repository.UserRepository;
 
 @Component
 public class Initializer implements ApplicationListener<ContextRefreshedEvent>{
 
 	@Autowired
-	private RoleRepository roleRepository;
+	private UserRepository userRepository;
 		
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		for (int i = 0; i < 1000; i++) {
-			this.saveRole("Admin", StatusRole.ATIVO);
-		}
 		
-		for (int i = 0; i < 1000; i++) {
-			this.saveRole("Qualquer Coisa", StatusRole.INATIVO);
-		}
+		Functionality functionality = new Functionality();
+		functionality.setName("Add");
 		
-		PageRequest pageable = PageRequest.of(10, 10);
-		Page<Role> roles = this.roleRepository.findAll(pageable);
+		Functionality functionality2 = new Functionality();
+		functionality2.setName("Delete");
 		
-		for (Role role : roles) {
-			System.out.println(role.getName());
-		}
-	}
-	
-	public void saveRole(String name, StatusRole status) {
-		Role role = new Role(name, status);
+		Role role = new Role("Admin", StatusRole.ATIVO, Arrays.asList(functionality));
+		Role role3 = new Role("Aluno", StatusRole.ATIVO, Arrays.asList(functionality2));
 		
-		this.roleRepository.save(role);
+		User user = new User();
+		
+		user.setName("Nielson Ferreira");
+		user.setEmail("nielsonfferreira@hotmail.com");
+		user.setRoles(Arrays.asList(role, role3));
+		
+		this.userRepository.save(user);
+		
+		User user2 = new User();
+		
+		user2.setName("João Silva");
+		user2.setEmail("joao.s@gmail.com");
+		
+		this.userRepository.save(user2);
+		
+		User userR = this.userRepository.findByName("Nielson");
+		
+		System.out.println(userR.getEmail());
 	}
 
 }
