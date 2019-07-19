@@ -1,7 +1,10 @@
 # Estudos básicos com Spring Framework
 
 Utilizando:
-<a href="https://projects.spring.io/spring-boot/" rel="nofollow">Spring Boot</a>
+<ul>
+  <li>
+    <a href="https://projects.spring.io/spring-boot/" rel="nofollow">Spring Boot</a>
+  </li>
 - Spring JPA
 - Spring Data
 - Hibernate
